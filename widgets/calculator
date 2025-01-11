@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimal Calculator</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            color: #333;
+            transition: background 0.5s ease;
+        }
+        .calculator {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 300px;
+        }
+        .display {
+            font-size: 24px;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            text-align: right;
+            box-sizing: border-box;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #f0f0f0;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #ddd;
+        }
+        .color-schemes {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .color-schemes button {
+            flex: 1;
+            margin: 0 5px;
+            font-size: 14px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" class="display" disabled placeholder="0">
+        <div class="buttons">
+            <button onclick="pressKey('7')">7</button>
+            <button onclick="pressKey('8')">8</button>
+            <button onclick="pressKey('9')">9</button>
+            <button onclick="pressKey('/')">/</button>
+
+            <button onclick="pressKey('4')">4</button>
+            <button onclick="pressKey('5')">5</button>
+            <button onclick="pressKey('6')">6</button>
+            <button onclick="pressKey('*')">*</button>
+
+            <button onclick="pressKey('1')">1</button>
+            <button onclick="pressKey('2')">2</button>
+            <button onclick="pressKey('3')">3</button>
+            <button onclick="pressKey('-')">-</button>
+
+            <button onclick="pressKey('0')">0</button>
+            <button onclick="pressKey('.')">.</button>
+            <button onclick="calculate()">=</button>
+            <button onclick="pressKey('+')">+</button>
+
+            <button onclick="clearDisplay()" style="grid-column: span 4; background: #ff6b6b; color: white;">Clear</button>
+        </div>
+        <div class="color-schemes">
+            <button onclick="setScheme('pastels')">Pastels</button>
+            <button onclick="setScheme('gray')">Gray</button>
+            <button onclick="setScheme('rainbow')">Rainbow</button>
+        </div>
+    </div>
+
+    <script>
+        let display = document.querySelector('.display');
+
+        function pressKey(key) {
+            if (display.value === "0") {
+                display.value = key;
+            } else {
+                display.value += key;
+            }
+        }
+
+        function calculate() {
+            try {
+                display.value = eval(display.value) || "0";
+            } catch (e) {
+                display.value = "Error";
+            }
+        }
+
+        function clearDisplay() {
+            display.value = "0";
+        }
+
+        function setScheme(scheme) {
+            const body = document.body;
+            if (scheme === 'pastels') {
+                body.style.background = 'linear-gradient(135deg, #a8edea, #fed6e3)';
+            } else if (scheme === 'gray') {
+                body.style.background = 'linear-gradient(135deg, #e0e0e0, #cfcfcf)';
+            } else if (scheme === 'rainbow') {
+                body.style.background = 'linear-gradient(135deg, red, orange, yellow, green, blue, indigo, violet)';
+            }
+        }
+    </script>
+</body>
+</html>
